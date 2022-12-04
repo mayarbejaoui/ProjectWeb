@@ -1,0 +1,397 @@
+
+<?php
+session_start();
+
+if(isset($_SESSION["id_user"])) {
+}else{
+  session_destroy();
+	header('Location: signin.php');
+
+    
+}
+?>
+<?php
+    include_once 'C:\xampp\htdocs\louled\Model\Sponsor.php';
+    include_once 'C:\xampp\htdocs\louled\Controller\SponsorC.php';
+
+    $error = "";
+
+    // create offre
+    $Sponsor = null;
+
+$subscribe_price=null;
+ $radio_val=null;
+    // create an instance of the controller
+    $SponsorC = new SponsorC();
+    if (
+		isset($_POST["type_sponsor"]) &&		
+        isset($_POST["endsub_date"]) &&
+        isset($_POST["sponsor_describe"])
+        
+    ) if (
+        isset($_POST["type_sponsor"]) &&		
+        isset($_POST["endsub_date"]) &&
+        isset($_POST["sponsor_describe"]) 
+    ){
+        $radio_val=$_POST["type_sponsor"];
+        if($radio_val=="Active")
+        {
+            $subscribe_price=25;
+        }
+         else if($radio_val=="Dormant")
+        {
+            $subscribe_price=50;
+        }
+        else if($radio_val=="Nominal")
+        {
+            $subscribe_price=75;
+        }
+        else if($radio_val=="Partner")
+        {
+            $subscribe_price=200;
+        }
+      
+            $Sponsor = new Sponsor(
+                $_SESSION["id_user"],		
+                $_POST["type_sponsor"] ,
+                $_POST["endsub_date"],
+                $subscribe_price,
+                $_POST["sponsor_describe"]
+                
+              );
+              
+            $SponsorC->ajoutersponsor($Sponsor);
+            header("Location:affichersponsor.php");
+
+        }
+        else
+            $error = "Missing information";
+
+    
+?>
+<!DOCTYPE html>
+<html lang="en">
+<!-- Basic -->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!-- Mobile Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Site Metas -->
+    <title>TUNI-TROC</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Site Icons -->
+    <link rel="shortcut icon" href="images/img3.png" type="image/img3.png">
+    <link rel="apple-touch-icon" href="images/img3.png">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <!-- Site CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Responsive CSS -->
+    <link rel="stylesheet" href="css/responsive.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/custom.css">
+
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+    <!-- Start Main Top -->
+ 
+    <!-- End Main Top -->
+
+    <!-- Start Main Top -->
+    <header class="main-header">
+        <!-- Start Navigation -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-default bootsnav">
+            <div class="container">
+                <!-- Start Header Navigation -->
+                <div class="navbar-header">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-menu" aria-controls="navbars-rs-food" aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="fa fa-bars"></i>
+                </button>
+                    <a class="navbar-brand" href="index.html"><img src="images/img3.png" class="logo" alt=""height="76" width="76"></a>
+                </div>
+                <!-- End Header Navigation -->
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="navbar-menu">
+                    <ul class="nav navbar-nav ml-auto" data-in="fadeInDown" data-out="fadeOutUp">
+                        <li class="nav-item"><a class="nav-link" href="profile.php">Profil</a></li>
+                        <li class="nav-item active "><a class="nav-link" href="about.html">be a partner</a></li>
+                        <li class="dropdown ">
+                            <a href="afficheravis.php" class="nav-link dropdown-toggle arrow " data-toggle="dropdown">avis et reclamation</a>
+                            <ul class="dropdown-menu">
+								<li><a href="afficheravis.php">show avis</a></li>
+								<li><a href="ajouteravis.php">add  avis</a></li>
+                                <li><a href="afficherreclamation.php">show reclamation</a></li>
+                                <li><a href="ajouterreclamation.php">add reclamation</a></li>
+                            
+                            </ul>
+                        </li>
+                        <li class="nav-item"><a class="nav-link" href="affichersponsor.php">Sponsor</a></li>
+                        <li class="nav-item"><a class="nav-link" href="afficherposte.php">Forum</a></li>
+                    </ul>
+                </div>
+                <!-- /.navbar-collapse -->
+
+ 
+                <!-- Start Atribute Navigation -->
+                <div class="attr-nav">
+                    <ul>
+                        <li class="search"><a href="#"><i class="fa fa-search"></i></a></li>
+                        <?php 
+                          if(isset($_SESSION['id_user'])){
+                             ?>
+
+                        <li class=""><a href="logout.php">
+						
+							<p>LOG OUT</p>
+					</a></li>
+                 
+                    <?php 
+                    }else
+                    {
+                    ?>
+                  
+                    <li class=""><a href="signin.php">
+						
+                        <p>SIGN IN</p>
+                </a></li>
+                <li class=""><a href="signup.php">
+						
+                        <p>SIGN UP</p>
+                </a></li>
+                <?php 
+                   }
+    
+                       
+                     ?>
+                    </ul>
+                </div>
+                <!-- End Atribute Navigation -->
+            </div>
+            <!-- Start Side Menu -->
+          
+            <!-- End Side Menu -->
+        </nav>
+        <!-- End Navigation -->
+    </header>
+    <!-- End Main Top -->
+
+        <hr>
+        
+        <div id="error">
+            <?php echo $error; ?>
+        </div>
+  
+        <div class="row">
+    <div class="col-md-5">
+                                  
+                                </div>
+                                <div class="col-md-4">
+                                <h1 class="center">become a sponsor</h1>
+                                </div>
+                                <div class="col-md-4">
+                                  
+                                  </div>
+                                  </div>
+        <form id="" method="POST">
+                            <div class="row">
+                            <div class="col-md-4">
+                                  
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                    <input type="radio" id="type_sponsor" name="type_sponsor" value="Active" checked>Active  <br> 
+                                    <p>An active partner is an invested person who is involved in the daily operations of the partnership.
+                                         An active partner helps run the business to enhance his or her returns and is therefore considered
+                                          a material participant. This person typically shares more risk and return versus a limited or silent partner.  </p>
+                                          <p>YOUR MONTHLY SUBSCRIBE WILL BE : 25$</p>
+                                     <input type="radio" id="type_sponsor"  name="type_sponsor" value="Dormant">Dormant <br>
+                                     <p>A dormant partner designates a contributor of capital, who shares the objectives and profits of a company,
+                                         but without being involved in its day-to-day management. 
+                                         A sleeping partner is a shareholder or de facto partner, 
+                                         even if his name does not necessarily appear in public. </p> 
+                                         <p>YOUR MONTHLY SUBSCRIBE WILL BE : 50$</p>
+
+                                     <input type="radio" id="type_sponsor" name="type_sponsor" value="Nominal">Nominal <br> 
+                                     <p>Nominal Partner: A partner who allows the partnership firm to use his/her name but does not contribute any capital
+                                         or take part in the management and affairs of the business. He does not share 
+                                         the profits and losses of the firm but he is liable to the creditors for
+                                          the repayment of the firm's debts. </p>
+                                          <p>YOUR MONTHLY SUBSCRIBE WILL BE : 75$</p>
+
+                                     <input type="radio" id="type_sponsor" name="type_sponsor" value="Partner">Partner  </div>
+                                     <p>A simple partnership is the most basic form of a partnership.
+                                         It involves a contract under which two or more persons agree
+                                          to unite their efforts or their resources to achieve a common goal Art.</p>
+                                          <p>YOUR MONTHLY SUBSCRIBE WILL BE : 200$</p>
+
+                                </div>
+                                <div class="col-md-4">
+                                  
+                                  </div>
+                                  <div class="col-md-4">
+                                  
+                                  </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <input type="date" placeholder="Votre endsub_date" id="endsub_date" class="form-control" name="endsub_date" >
+                                        
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                  
+                                  </div>
+                                  <div class="col-md-4">
+                                  
+                                  </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" id="sponsor_describe" name="sponsor_describe" placeholder="sponsor_describe" >
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                  
+                                  </div>
+                                 
+                                  
+                                  <div class="col-md-5">
+                                  
+                                  </div>
+                                    <div class="submit-button text-center">
+
+                                    <input class="btn hvr-hover" type="submit" value="ajouter Sponsor"> 
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+     
+
+    
+        <!-- Start Footer  -->
+        <footer>
+        <div class="footer-main">
+            <div class="container">
+				<div class="row">
+					<div class="col-lg-4 col-md-12 col-sm-12">
+						<div class="footer-top-box">
+							<h3>Business Time</h3>
+							<ul class="list-time">
+								<li>Monday - Friday: 08.00am to 05.00pm</li> <li>Saturday: 10.00am to 08.00pm</li> <li>Sunday: <span>Closed</span></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-lg-4 col-md-12 col-sm-12">
+						<div class="footer-top-box">
+							<h3>Newsletter</h3>
+							<form class="newsletter-box">
+								<div class="form-group">
+									<input class="" type="email" name="Email" placeholder="Email Address*" />
+									<i class="fa fa-envelope"></i>
+								</div>
+								<button class="btn hvr-hover" type="submit">Submit</button>
+							</form>
+						</div>
+					</div>
+					<div class="col-lg-4 col-md-12 col-sm-12">
+						<div class="footer-top-box">
+							<h3>Social Media</h3>
+							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+							<ul>
+                                <li><a href="#"><i class="fab fa-facebook" aria-hidden="true"></i></a></li>
+                                <li><a href="#"><i class="fab fa-twitter" aria-hidden="true"></i></a></li>
+                                <li><a href="#"><i class="fab fa-linkedin" aria-hidden="true"></i></a></li>
+                                <li><a href="#"><i class="fab fa-google-plus" aria-hidden="true"></i></a></li>
+                                <li><a href="#"><i class="fa fa-rss" aria-hidden="true"></i></a></li>
+                                <li><a href="#"><i class="fab fa-pinterest-p" aria-hidden="true"></i></a></li>
+                                <li><a href="#"><i class="fab fa-whatsapp" aria-hidden="true"></i></a></li>
+                            </ul>
+						</div>
+					</div>
+				</div>
+				<hr>
+                <div class="row">
+                    <div class="col-lg-4 col-md-12 col-sm-12">
+                        <div class="footer-widget">
+                            <h4>About Freshshop</h4>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p> 
+							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p> 							
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-12 col-sm-12">
+                        <div class="footer-link">
+                            <h4>Information</h4>
+                            <ul>
+                                <li><a href="#">Qui sommes-nous</a></li>
+                                <li><a href="#">Customer Service</a></li>
+                                <li><a href="#">Our Sitemap</a></li>
+                                <li><a href="#">Terms &amp; Conditions</a></li>
+                                <li><a href="#">Privacy Policy</a></li>
+                                <li><a href="#">Delivery Information</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-12 col-sm-12">
+                        <div class="footer-link-contact">
+                            <h4>CONTACTEZ-NOUS</h4>
+                            <ul>
+                                <li>
+                                    <p><i class="fas fa-map-marker-alt"></i>Address: Michael I. Days 3756 <br>Preston Street Wichita,<br> KS 67213 </p>
+                                </li>
+                                <li>
+                                    <p><i class="fas fa-phone-square"></i>Phone: <a href="tel:+1-888705770">+1-888 705 770</a></p>
+                                </li>
+                                <li>
+                                    <p><i class="fas fa-envelope"></i>Email: <a href="mailto:contactinfo@gmail.com">contactinfo@gmail.com</a></p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- End Footer  -->
+
+    <!-- Start copyright  -->
+    <div class="footer-copyright">
+        <p class="footer-company">All Rights Reserved. &copy; 2018 <a href="#">ThewayShop</a> Design By :
+            <a href="https://html.design/">html design</a></p>
+    </div>
+    <!-- End copyright  -->
+
+    <a href="#" id="back-to-top" title="Back to top" style="display: none;">&uarr;</a>
+
+    <!-- ALL JS FILES -->
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <!-- ALL PLUGINS -->
+    <script src="js/jquery.superslides.min.js"></script>
+    <script src="js/bootstrap-select.js"></script>
+    <script src="js/inewsticker.js"></script>
+    <script src="js/bootsnav.js."></script>
+    <script src="js/images-loded.min.js"></script>
+    <script src="js/isotope.min.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/baguetteBox.min.js"></script>
+    <script src="js/form-validator.min.js"></script>
+    <script src="js/contact-form-script.js"></script>
+    <script src="js/custom.js"></script>
+    <script src="validate.js"></script>
+</body>
+
+</html>
