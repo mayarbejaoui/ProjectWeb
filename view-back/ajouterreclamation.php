@@ -37,7 +37,35 @@ if(isset($_SESSION["id_user"])) {
         isset($_POST["num_tel"]) &&
         isset($_POST["message"]) 
     ){
-      
+        
+        if(strlen($_POST["prenom_perso"])<2)
+        {
+            echo '<script>alert(" prenom must be longer ")</script>';
+
+        }
+        else if(strlen($_POST["nom_perso"])<2)
+        {
+            echo '<script>alert(" nom must be longer ")</script>';
+
+        }
+        else if(strlen($_POST["message"])<4)
+        {
+            echo '<script>alert(" message must be longer ")</script>';
+
+        }
+        else if(strlen($_POST["email"])<8)
+        {
+            echo '<script>alert(" email must be longer ")</script>';
+
+        }
+
+        else if ($_POST["num_tel"]==8)
+        {
+            echo '<script>alert(" phone number must be 8 character ")</script>';
+
+        }
+        else
+        {
             $reclamation = new Reclamation(
                $_POST["prenom_perso"],		
                 $_POST["nom_perso"] ,
@@ -51,6 +79,7 @@ if(isset($_SESSION["id_user"])) {
             $ReclamationC->ajouterreclamation($reclamation);
             header("Location:afficherreclamation.php");
         }
+    }
         else
             $error = "Missing information";
 
@@ -126,6 +155,9 @@ if(isset($_SESSION["id_user"])) {
                     <a href="affichersponsor.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Gestion sponsor</a>
                     <a href="afficherpublicite.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Gestion publicite</a>
 
+                    <a href="afficherproduit.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Gestion produit</a>
+                    <a href="affichercategorie.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Gestion categorie</a>
+
                 </div>
             </nav>
         </div>
@@ -162,7 +194,7 @@ if(isset($_SESSION["id_user"])) {
             </nav>
             <!-- Navbar End -->
 		
-        <button><a href="afficherreclamation.php">Retour à la liste des reclamation</a></button>
+        <button class="btn btn-warning"><a href="afficherreclamation.php">Retour à la liste des reclamation</a></button>
         <hr>
         
         <div id="error">

@@ -88,6 +88,9 @@ include("exel/export_data.php");
                     <a href="affichersponsor.php" class="nav-item nav-link active"><i class="fa fa-chart-bar me-2"></i>Gestion sponsor</a>
                     <a href="afficherpublicite.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Gestion publicite</a>
 
+                    <a href="afficherproduit.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Gestion produit</a>
+                    <a href="affichercategorie.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Gestion categorie</a>
+
                 </div>
             </nav>
         </div>
@@ -104,8 +107,8 @@ include("exel/export_data.php");
                 <a href="#" class="sidebar-toggler flex-shrink-0">
                     <i class="fa fa-bars"></i>
                 </a>
-                <form class="d-none d-md-flex ms-4">
-                    <input class="form-control border-0" type="search" placeholder="Search">
+                <form class="d-none d-md-flex ms-4" action="recherchersponsor.php">
+                    <input class="form-control border-0" type="search" name="rechercher" id="rechercher" search placeholder="Search">
                 </form>
                 <div class="navbar-nav align-items-center ms-auto">
                
@@ -124,7 +127,7 @@ include("exel/export_data.php");
             </nav>
             <!-- Navbar End -->
 		
-			<button><a href="ajoutersponsor.php">Ajouter un Sponsor</a></button>
+			<button class="btn btn-warning"><a href="ajoutersponsor.php">Ajouter un Sponsor</a></button>
 		<center><h1>Liste des Sponsor</h1></center>
 		<div class="row">
                            
@@ -140,15 +143,15 @@ include("exel/export_data.php");
 								 
 		<div class="table-responsive">
                         <table class="table text-start align-middle table-bordered table-hover mb-0">
-			<tr>
-				<th>id_sponsor</th>
-                <th>id_user</th>
-				<th>type_sponsor</th>
-                <th>subscribe_date</th>
+			<tr>  
+				<th> <a href="triesponsor.php?tire=id_sponsor"> id_sponsor </a></th>
+                <th> <a href="triesponsor.php?tire=id_user"> id_user</a></th>
+				<th> <a href="triesponsor.php?tire=type_sponsor"> type_sponsor</a></th>
+                <th> <a href="triesponsor.php?tire=subscribe_date"> subscribe_date</a></th>
                 			
-                <th>endsub_date</th>
-                <th>subscribe_price</th>
-                <th>sponsor_describe</th>
+                <th> <a href="triesponsor.php?tire=endsub_date"> endsub_date</a></th>
+                <th> <a href="triesponsor.php?tire=subscribe_price"> subscribe_price</a></th>
+                <th> <a href="triesponsor.php?tire=sponsor_describe"> sponsor_describe</a></th>
 	
 
 				<th>Modifier</th>

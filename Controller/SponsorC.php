@@ -13,6 +13,30 @@
 				die('Erreur:'. $e->getMessage());
 			}
 		}
+
+		function trierSponsor($trie){
+			$sql="SELECT * FROM sponsor order by `$trie` asc";
+			$db = config::getConnexion();
+			try{
+				$liste = $db->query($sql);
+				return $liste;
+			}
+			catch(Exception $e){
+				die('Erreur:'. $e->getMessage());
+			}
+		}
+		function recherforsponsor($rechercher){
+			$sql="SELECT * FROM sponsor WHERE id_sponsor like '%$rechercher%' or id_user like '%$rechercher%'  or type_sponsor like '%$rechercher%' or subscribe_date like '%$rechercher%' or endsub_date like '%$rechercher%' or subscribe_price like '%$rechercher%' or sponsor_describe like '%$rechercher%'";
+			$db = config::getConnexion();
+			try{
+				$liste = $db->query($sql);
+				return $liste;
+			}
+			catch(Exception $e){
+				die('Erreur:'. $e->getMessage());
+			}
+		}
+
 		function supprimersponsor($id_sponsor){
 			$sql="DELETE FROM sponsor WHERE id_sponsor=:id_sponsor";
 			$db = config::getConnexion();

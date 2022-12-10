@@ -76,11 +76,12 @@ if(isset($_SESSION["id_user"])) {
                     <ul class="nav navbar-nav ml-auto" data-in="fadeInDown" data-out="fadeOutUp">
                         <li class="nav-item"><a class="nav-link" href="profile.php">Profil</a></li>
                         <li class="nav-item "><a class="nav-link" href="bepartner.php">be a partner</a></li>
+                        <li class="nav-item "><a class="nav-link" href="afficherlisteproduitfront.php">show product</a></li>
+
                         <li class="dropdown active">
                             <a href="afficheravis.php" class="nav-link dropdown-toggle arrow " data-toggle="dropdown">avis et reclamation</a>
                             <ul class="dropdown-menu">
 								<li><a href="afficheravis.php">show avis</a></li>
-								<li><a href="ajouteravis.php">add  avis</a></li>
                                 <li><a href="afficherreclamation.php">show reclamation</a></li>
                                 <li><a href="ajouterreclamation.php">add reclamation</a></li>
                             

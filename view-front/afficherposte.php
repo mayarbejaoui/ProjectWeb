@@ -79,11 +79,12 @@ if(isset($_SESSION["id_user"])) {
                     <ul class="nav navbar-nav ml-auto" data-in="fadeInDown" data-out="fadeOutUp">
                         <li class="nav-item"><a class="nav-link" href="profile.php">Profil</a></li>
                         <li class="nav-item "><a class="nav-link" href="bepartner.php">be a partner</a></li>
+                        <li class="nav-item "><a class="nav-link" href="afficherlisteproduitfront.php">show product</a></li>
+
                         <li class="dropdown ">
                             <a href="afficheravis.php" class="nav-link dropdown-toggle arrow " data-toggle="dropdown">avis et reclamation</a>
                             <ul class="dropdown-menu">
 								<li><a href="afficheravis.php">show avis</a></li>
-								<li><a href="ajouteravis.php">add  avis</a></li>
                                 <li><a href="afficherreclamation.php">show reclamation</a></li>
                                 <li><a href="ajouterreclamation.php">add reclamation</a></li>
                             
@@ -152,7 +153,8 @@ if(isset($_SESSION["id_user"])) {
 
     <div class="row">
                                  <div class="col-md-5">
-                                  
+                               <a href="ajouterposte.php"> <button class="btn hvr-hover" type="submit" value="ajouter poste"> ajouter poste</button></a> 
+                                
                                 </div>
                                 <div class="col-md-4">
                                 <h1 class="center">Poste To Forum</h1>

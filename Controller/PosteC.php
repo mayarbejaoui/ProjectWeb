@@ -58,7 +58,28 @@
 			}
 		}
 
-
+		function trierposte($trie){
+			$sql="SELECT * FROM poste order by `$trie` asc";
+			$db = config::getConnexion();
+			try{
+				$liste = $db->query($sql);
+				return $liste;
+			}
+			catch(Exception $e){
+				die('Erreur:'. $e->getMessage());
+			}
+		}
+		function recherforposte($rechercher){
+			$sql="SELECT * FROM poste WHERE id_poste like '%$rechercher%' or id_user like '%$rechercher%'  or message like '%$rechercher%' or photo like '%$rechercher%' or nb_comments like '%$rechercher%' or nb_likes like '%$rechercher%' or date_poste like '%$rechercher%'";
+			$db = config::getConnexion();
+			try{
+				$liste = $db->query($sql);
+				return $liste;
+			}
+			catch(Exception $e){
+				die('Erreur:'. $e->getMessage());
+			}
+		}
 
 
 		

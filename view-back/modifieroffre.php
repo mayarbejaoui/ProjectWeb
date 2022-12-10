@@ -162,7 +162,7 @@ if(isset($_SESSION["id_user"])) {
             <!-- Navbar End -->
 		
             
-        <button><a href="afficherposte.php">Retour à la afficherposte</a></button>
+        <button class="btn btn-warning"><a href="afficheroffre.php">Retour à la liste offre</a></button>
         <hr>
         
         <div id="error">

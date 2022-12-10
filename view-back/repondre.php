@@ -122,14 +122,17 @@ if(isset($_SESSION["id_user"])) {
                 </div>
                 <div class="navbar-nav w-100">
                 <a href="afficheruser.php" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Gestion user</a>
-                    <a href="afficheravis.php" class="nav-item nav-link active "><i class="fa fa-tachometer-alt me-2"></i> Gestion avis</a>
-                    <a href="afficherreclamation.php" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Gestion recl</a>
+                    <a href="afficheravis.php" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i> Gestion avis</a>
+                    <a href="afficherreclamation.php" class="nav-item nav-link active"><i class="fa fa-table me-2"></i>Gestion recl</a>
 
                     <a href="afficherposte.php" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Gestion poste</a>
                     <a href="affichercomment.php" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Gestion comment</a>
 
                     <a href="affichersponsor.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Gestion sponsor</a>
                     <a href="afficherpublicite.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Gestion publicite</a>
+
+                    <a href="afficherproduit.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Gestion produit</a>
+                    <a href="affichercategorie.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Gestion categorie</a>
 
                 </div>
             </nav>
@@ -167,7 +170,7 @@ if(isset($_SESSION["id_user"])) {
             </nav>
             <!-- Navbar End -->
 		
-        <button><a href="afficheravis.php">Retour à la liste des avis</a></button>
+        <button class="btn btn-warning"><a href="afficherreclamation.php">Retour à la liste des reclamation</a></button>
         <hr>
 
         

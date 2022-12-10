@@ -87,6 +87,9 @@ if(isset($_SESSION["id_user"])) {
                     <a href="affichersponsor.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Gestion sponsor</a>
                     <a href="afficherpublicite.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Gestion publicite</a>
 
+                    <a href="afficherproduit.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Gestion produit</a>
+                    <a href="affichercategorie.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Gestion categorie</a>
+
                 </div>
             </nav>
         </div>
@@ -123,7 +126,7 @@ if(isset($_SESSION["id_user"])) {
             </nav>
             <!-- Navbar End -->
 		
-			<button><a href="afficherposte.php">Ajouter un comment</a></button>
+			<button class="btn btn-warning"><a href="ajoutercomment.php">Ajouter un comment</a></button>
 		<center><h1>Liste des comment</h1></center>
 		<div class="row">
                            

@@ -34,6 +34,19 @@ if(isset($_SESSION["id_user"])) {
         isset($_POST["photo"]) &&		
         isset($_POST["message"]) 
     ){
+        if(strlen($_POST["message"])<8)
+        {
+            echo '<script>alert(" message must be longer ")</script>';
+
+        }
+        else if ($_POST["photo"]=="")
+        {
+            echo '<script>alert(" photo must be filled out ")</script>';
+
+        }
+        
+        else
+        {
       
             $Comment = new Comment(
                 $_SESSION["id_user"],	
@@ -48,6 +61,7 @@ if(isset($_SESSION["id_user"])) {
             $CommentC->ajoutercomment($Comment);
             header("Location:affichercomment.php");
         }
+    }
         else
             $error = "Missing information";
 
@@ -124,6 +138,9 @@ if(isset($_SESSION["id_user"])) {
                     <a href="affichersponsor.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Gestion sponsor</a>
                     <a href="afficherpublicite.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Gestion publicite</a>
 
+                    <a href="afficherproduit.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Gestion produit</a>
+                    <a href="affichercategorie.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Gestion categorie</a>
+
                 </div>
             </nav>
         </div>
@@ -160,7 +177,7 @@ if(isset($_SESSION["id_user"])) {
             </nav>
             <!-- Navbar End -->
 		
-        <button><a href="affichercomment.php">Retour à la liste des comments</a></button>
+        <button class="btn btn-warning"><a href="affichercomment.php">Retour à la liste des comments</a></button>
         <hr>
         
         <div id="error">

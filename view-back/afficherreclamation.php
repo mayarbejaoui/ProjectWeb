@@ -24,7 +24,7 @@ if(isset($_SESSION["id_user"])) {
     }
 	
 	$nbrec=$ReclamationC->nbreclamation();
-    $nbreclamation_per_page=5;
+    $nbreclamation_per_page=3;
     $nb_pages=ceil( $nbrec["rc"] / $nbreclamation_per_page);
     $debut=($page-1)*$nbreclamation_per_page;
     $listeRec=$ReclamationC->afficherReclamationforpagination($debut,$nbreclamation_per_page); 
@@ -118,6 +118,9 @@ $test=0;
                     <a href="affichersponsor.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Gestion sponsor</a>
                     <a href="afficherpublicite.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Gestion publicite</a>
 
+                    <a href="afficherproduit.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Gestion produit</a>
+                    <a href="affichercategorie.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Gestion categorie</a>
+
                 </div>
             </nav>
         </div>
@@ -154,7 +157,7 @@ $test=0;
             </nav>
             <!-- Navbar End -->
 		
-			<button><a href="ajouterreclamation.php">Ajouter un reclamation</a></button>
+			<button class="btn btn-warning"><a href="ajouterreclamation.php">Ajouter un reclamation</a></button>
 		<center><h1>Liste des reclamation</h1>        </center>
  
        
@@ -163,7 +166,7 @@ $test=0;
 								<div class="col-md-11">
            <form action="recherchereclamation.php" method="POST">
             <input type="text" id="rechercher" name="rechercher" placeholder="rechercher reclamation">
-            <button type="submit" value="rechercher"> rechercher</button>
+            <button type="submit" value="rechercher" class="btn btn-success"> rechercher</button>
            </form>                       
            <nav aria-label="Page navigation example">
              <ul class="pagination">
@@ -176,7 +179,8 @@ $test=0;
      <?php }  ?>  
      <li class="page-item"><a class="page-link" href="?page=<?php if($page == $nb_pages){echo $page; } else {echo $page+1;} ?>">Next</a></li>
      </ul>
-</nav>
+</nav>			<button class="btn btn-warning"><a href="recstat.php">afficher statistique</a></button>
+
 				 
 		<div class="table-responsive">
                         <table class="table text-start align-middle table-bordered table-hover mb-0">

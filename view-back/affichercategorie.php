@@ -10,49 +10,13 @@ if(isset($_SESSION["id_user"])) {
     
 }
 ?>
-
 <?php
-    include_once 'C:\xampp\htdocs\louled\Model\Publicite.php';
-    include_once 'C:\xampp\htdocs\louled\Controller\PubliciteC.php';
-
-    $error = "";
-
-    // create offre
-    $Publicite = null;
-
-    $a=$_GET["id_publicite"];
-
-
-    // create an instance of the controller
-    $PubliciteC = new PubliciteC();
-    if (
-		isset($_POST["nom_publicite"]) &&		
-        isset($_POST["prix"]) 	
-        
-    ) if (
-        isset($_POST["nom_publicite"]) &&		
-        isset($_POST["prix"]) 
-    ){
-      
-            $Publicite = new Publicite(
-               $a,		
-                $_POST["nom_publicite"],
-                $_POST["prix"],
-                $_POST["prix"]
-   
-                
-              );
-          
-            $PubliciteC->modifierpublicite($Publicite, $a);
-            header("Location:afficherpublicite.php");
-
-        }
-        else
-            $error = "Missing information";
-
-    
-            ?>
-         <!DOCTYPE html>
+	include_once 'C:\xampp\htdocs\louled\Controller\categorieC.php';
+	$categorieC=new categorieC();
+	$listecategorie=$categorieC->affichercategorie(); 
+	
+?>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -84,7 +48,6 @@ if(isset($_SESSION["id_user"])) {
     <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
 </head>
-
 <body>
     <div class="container-xxl position-relative bg-white d-flex p-0">
         <!-- Spinner Start -->
@@ -114,17 +77,16 @@ if(isset($_SESSION["id_user"])) {
                 </div>
                 <div class="navbar-nav w-100">
                 <a href="afficheruser.php" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Gestion user</a>
-                    <a href="afficheravis.php" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i> Gestion avis</a>
+                    <a href="afficheravis.php" class="nav-item nav-link  "><i class="fa fa-tachometer-alt me-2"></i> Gestion avis</a>
                     <a href="afficherreclamation.php" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Gestion recl</a>
 
-                    <a href="afficherposte.php" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Gestion poste</a>
+                    <a href="afficherposte.php" class="nav-item nav-link "><i class="fa fa-keyboard me-2"></i>Gestion poste</a>
                     <a href="affichercomment.php" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Gestion comment</a>
 
                     <a href="affichersponsor.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Gestion sponsor</a>
-                    <a href="afficherpublicite.php" class="nav-item nav-link active"><i class="fa fa-chart-bar me-2"></i>Gestion publicite</a>
-
+                    <a href="afficherpublicite.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Gestion publicite</a>
                     <a href="afficherproduit.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Gestion produit</a>
-                    <a href="affichercategorie.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Gestion categorie</a>
+                    <a href="affichercategorie.php" class="nav-item nav-link active"><i class="fa fa-chart-bar me-2"></i>Gestion categorie</a>
 
                 </div>
             </nav>
@@ -161,70 +123,50 @@ if(isset($_SESSION["id_user"])) {
                 </div>
             </nav>
             <!-- Navbar End -->
-		 
-            
-        <button class="btn btn-warning"><a href="afficherpublicte.php">Retour à la afficherpublicte</a></button>
-        <hr>
-        
-        <div id="error">
-            <?php echo $error; ?>
-        </div>
+		
+			<button class="btn btn-warning"><a href="ajoutercategorie.php">Ajouter un categorie</a></button>
+		<center><h1>Liste des categorie</h1></center>
+		<div class="row">
+                           
+								<div class="col-md-11">
+                                  
+								 
+		<div class="table-responsive">
+                        <table class="table text-start align-middle table-bordered table-hover mb-0">
+			<tr>
+            <th>id_categorie </th>
+				<th>code_categ </th>
+                
+
+				<th>Modifier</th>
+				<th>Supprimer</th>
+           
+                
+			</tr>
+			<?php
+				foreach($listecategorie as $categorie){
+			?>
+			<tr>
+            <td><?php echo $categorie['id_categorie']; ?></td>
+				<td><?php echo $categorie['code_categ']; ?></td>
 			
-		<?php
-			if (isset($_GET["id_publicite"])){
-				$publicites = $PubliciteC->recupererpublicite($_GET["id_publicite"]);
 				
-		?>
-             <form id="" method="POST">
-                            <div class="row">
-                         
-                                  <div class="col-md-4">
-                                  
-                                  </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <input type="text" placeholder="Votre nom_publicite" value="<?php echo $publicites['nom_publicite']; ?>" id="nom_publicite" class="form-control" name="nom_publicite" >
-                        
-                                        
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                  
-                                  </div>
-                                  <div class="col-md-4">
-                                  
-                                  </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                    <input type="number" class="form-control" value="<?php echo $publicites['prix']; ?>" name="prix" id="prix" />   
-                                    
-                                                                </div>
-                                </div>
-                                <div class="col-md-4">
-                                  
-                                  </div>
-                                  
-                              
-                                  
-                                  <div class="col-md-5">
-                                  
-                                  </div>
-                                    <div class="submit-button text-center">
+				
+				<td>
+                <a href="modifiercategorie.php?id_categorie=<?php echo $categorie['id_categorie']; ?>">modifier</a>
 
-                                    <input class="btn hvr-hover" type="submit" value="modifier poste"> 
-                                   
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-     
-
-        </div>
-  
-		<?php
-		}
-		?>
-   </div>
+				</td>
+				<td>
+					<a href="supprimercategorie.php?id_categorie=<?php echo $categorie['id_categorie']; ?>">Supprimer</a>
+				</td>
+          
+			</tr>
+			<?php
+				}
+			?>
+		</table>
+			</div>
+		</div>
 	      <!-- Footer End -->
 		  </div>
         <!-- Content End -->

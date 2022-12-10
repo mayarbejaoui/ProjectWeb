@@ -36,6 +36,14 @@ if(isset($_SESSION["id_user"])) {
        		
         isset($_POST["message"]) 
     ){
+
+        if(strlen($_POST["message"])<8)
+        {
+            echo '<script>alert(" message must be longer ")</script>';
+
+        }
+        else
+        {
       
             $avis = new Avis(
                 $_SESSION["id_user"],		
@@ -47,6 +55,7 @@ if(isset($_SESSION["id_user"])) {
             $AvisC->ajouteravis($avis,$_POST["reclamation"],$rate);
             header("Location:afficheravis.php");
         }
+    }
         else
             $error = "Missing information";
 
@@ -135,6 +144,9 @@ if(isset($_SESSION["id_user"])) {
                     <a href="affichersponsor.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Gestion sponsor</a>
                     <a href="afficherpublicite.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Gestion publicite</a>
 
+                    <a href="afficherproduit.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Gestion produit</a>
+                    <a href="affichercategorie.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Gestion categorie</a>
+
                 </div>
             </nav>
         </div>
@@ -171,7 +183,7 @@ if(isset($_SESSION["id_user"])) {
             </nav>
             <!-- Navbar End -->
 		
-        <button><a href="afficheravis.php">Retour à la liste des avis</a></button>
+        <button class="btn btn-warning"><a href="afficheravis.php">Retour à la liste des avis</a></button>
         <hr>
         
         <div id="error">

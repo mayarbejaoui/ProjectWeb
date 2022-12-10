@@ -12,39 +12,31 @@ if(isset($_SESSION["id_user"])) {
 ?>
 
 <?php
-    include_once 'C:\xampp\htdocs\louled\Model\Publicite.php';
-    include_once 'C:\xampp\htdocs\louled\Controller\PubliciteC.php';
+    include_once 'C:\xampp\htdocs\louled\Model\categorie.php';
+    include_once 'C:\xampp\htdocs\louled\Controller\CategorieC.php';
 
     $error = "";
 
     // create offre
-    $Publicite = null;
+    $categorie = null;
 
-    $a=$_GET["id_publicite"];
+    $a=$_GET["id_categorie"];
 
 
     // create an instance of the controller
-    $PubliciteC = new PubliciteC();
+    $CategorieC = new CategorieC();
     if (
-		isset($_POST["nom_publicite"]) &&		
-        isset($_POST["prix"]) 	
+				
+        isset($_POST["code_categ"]) 	
         
     ) if (
-        isset($_POST["nom_publicite"]) &&		
-        isset($_POST["prix"]) 
+        isset($_POST["code_categ"])
     ){
       
-            $Publicite = new Publicite(
-               $a,		
-                $_POST["nom_publicite"],
-                $_POST["prix"],
-                $_POST["prix"]
-   
-                
-              );
           
-            $PubliciteC->modifierpublicite($Publicite, $a);
-            header("Location:afficherpublicite.php");
+          
+            $CategorieC->modifiercategorie($a,$_POST["code_categ"]	);
+            header("Location:affichercategorie.php");
 
         }
         else
@@ -52,7 +44,7 @@ if(isset($_SESSION["id_user"])) {
 
     
             ?>
-         <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -114,17 +106,17 @@ if(isset($_SESSION["id_user"])) {
                 </div>
                 <div class="navbar-nav w-100">
                 <a href="afficheruser.php" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Gestion user</a>
-                    <a href="afficheravis.php" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i> Gestion avis</a>
+                    <a href="afficheravis.php" class="nav-item nav-link  "><i class="fa fa-tachometer-alt me-2"></i> Gestion avis</a>
                     <a href="afficherreclamation.php" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Gestion recl</a>
 
                     <a href="afficherposte.php" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Gestion poste</a>
                     <a href="affichercomment.php" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Gestion comment</a>
 
                     <a href="affichersponsor.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Gestion sponsor</a>
-                    <a href="afficherpublicite.php" class="nav-item nav-link active"><i class="fa fa-chart-bar me-2"></i>Gestion publicite</a>
+                    <a href="afficherpublicite.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Gestion publicite</a>
 
                     <a href="afficherproduit.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Gestion produit</a>
-                    <a href="affichercategorie.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Gestion categorie</a>
+                    <a href="affichercategorie.php" class="nav-item nav-link active"><i class="fa fa-chart-bar me-2"></i>Gestion categorie</a>
 
                 </div>
             </nav>
@@ -161,9 +153,9 @@ if(isset($_SESSION["id_user"])) {
                 </div>
             </nav>
             <!-- Navbar End -->
-		 
+		      
             
-        <button class="btn btn-warning"><a href="afficherpublicte.php">Retour à la afficherpublicte</a></button>
+        <button class="btn btn-warning"><a href="affichercategorie.php">Retour à la affichercategorie</a></button>
         <hr>
         
         <div id="error">
@@ -171,11 +163,12 @@ if(isset($_SESSION["id_user"])) {
         </div>
 			
 		<?php
-			if (isset($_GET["id_publicite"])){
-				$publicites = $PubliciteC->recupererpublicite($_GET["id_publicite"]);
+			if (isset($_GET["id_categorie"])){
+				$categorie = $CategorieC->recuperercategorie($_GET["id_categorie"]);
 				
 		?>
-             <form id="" method="POST">
+        
+        <form id="" method="POST">
                             <div class="row">
                          
                                   <div class="col-md-4">
@@ -183,7 +176,7 @@ if(isset($_SESSION["id_user"])) {
                                   </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <input type="text" placeholder="Votre nom_publicite" value="<?php echo $publicites['nom_publicite']; ?>" id="nom_publicite" class="form-control" name="nom_publicite" >
+                                        <input type="text" placeholder="Votre code_categ" value="<?php echo $categorie['code_categ']; ?>" id="code_categ" class="form-control" name="code_categ" >
                         
                                         
                                     </div>
@@ -191,18 +184,7 @@ if(isset($_SESSION["id_user"])) {
                                 <div class="col-md-4">
                                   
                                   </div>
-                                  <div class="col-md-4">
-                                  
-                                  </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                    <input type="number" class="form-control" value="<?php echo $publicites['prix']; ?>" name="prix" id="prix" />   
-                                    
-                                                                </div>
-                                </div>
-                                <div class="col-md-4">
-                                  
-                                  </div>
+                            
                                   
                               
                                   
@@ -211,7 +193,7 @@ if(isset($_SESSION["id_user"])) {
                                   </div>
                                     <div class="submit-button text-center">
 
-                                    <input class="btn hvr-hover" type="submit" value="modifier poste"> 
+                                    <input class="btn hvr-hover" type="submit" value="modifier categorie"> 
                                    
                                     </div>
                                 </div>
@@ -220,7 +202,7 @@ if(isset($_SESSION["id_user"])) {
      
 
         </div>
-  
+   
 		<?php
 		}
 		?>

@@ -50,7 +50,20 @@ $subscribe_price=null;
         {
             $subscribe_price=200;
         }
-      
+        if(strlen($_POST["sponsor_describe"])<8)
+        {
+            echo '<script>alert(" sponsor describe must be longer ")</script>';
+
+        }
+        else if ($_POST["endsub_date"]=="")
+        {
+            echo '<script>alert(" date must be filled out ")</script>';
+
+        }
+        else
+        {
+
+            
             $Sponsor = new Sponsor(
                 $_SESSION["id_user"],		
                 $_POST["type_sponsor"] ,
@@ -62,7 +75,7 @@ $subscribe_price=null;
               
             $SponsorC->ajoutersponsor($Sponsor);
             header("Location:affichersponsor.php");
-
+        }      
         }
         else
             $error = "Missing information";
@@ -129,12 +142,13 @@ $subscribe_price=null;
                 <div class="collapse navbar-collapse" id="navbar-menu">
                     <ul class="nav navbar-nav ml-auto" data-in="fadeInDown" data-out="fadeOutUp">
                         <li class="nav-item"><a class="nav-link" href="profile.php">Profil</a></li>
-                        <li class="nav-item active "><a class="nav-link" href="about.html">be a partner</a></li>
+                        <li class="nav-item active "><a class="nav-link" href="bepartner.php">be a partner</a></li>
+                        <li class="nav-item "><a class="nav-link" href="afficherlisteproduitfront.php">show product</a></li>
+
                         <li class="dropdown ">
                             <a href="afficheravis.php" class="nav-link dropdown-toggle arrow " data-toggle="dropdown">avis et reclamation</a>
                             <ul class="dropdown-menu">
 								<li><a href="afficheravis.php">show avis</a></li>
-								<li><a href="ajouteravis.php">add  avis</a></li>
                                 <li><a href="afficherreclamation.php">show reclamation</a></li>
                                 <li><a href="ajouterreclamation.php">add reclamation</a></li>
                             

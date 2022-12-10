@@ -1,3 +1,15 @@
+
+<?php
+session_start();
+
+if(isset($_SESSION["id_user"])) {
+	header('Location: profile.php');
+}else{
+ 
+
+    
+}
+?>
 <?php
     include_once 'C:\xampp\htdocs\louled\Model\User.php';
     include_once 'C:\xampp\htdocs\louled\Controller\UserC.php';

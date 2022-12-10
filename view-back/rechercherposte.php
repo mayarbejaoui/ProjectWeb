@@ -10,49 +10,13 @@ if(isset($_SESSION["id_user"])) {
     
 }
 ?>
-
 <?php
-    include_once 'C:\xampp\htdocs\louled\Model\Publicite.php';
-    include_once 'C:\xampp\htdocs\louled\Controller\PubliciteC.php';
-
-    $error = "";
-
-    // create offre
-    $Publicite = null;
-
-    $a=$_GET["id_publicite"];
-
-
-    // create an instance of the controller
-    $PubliciteC = new PubliciteC();
-    if (
-		isset($_POST["nom_publicite"]) &&		
-        isset($_POST["prix"]) 	
-        
-    ) if (
-        isset($_POST["nom_publicite"]) &&		
-        isset($_POST["prix"]) 
-    ){
-      
-            $Publicite = new Publicite(
-               $a,		
-                $_POST["nom_publicite"],
-                $_POST["prix"],
-                $_POST["prix"]
-   
-                
-              );
-          
-            $PubliciteC->modifierpublicite($Publicite, $a);
-            header("Location:afficherpublicite.php");
-
-        }
-        else
-            $error = "Missing information";
-
-    
-            ?>
-         <!DOCTYPE html>
+	include_once 'C:\xampp\htdocs\louled\Controller\PosteC.php';
+	$PosteC=new PosteC();
+	$listePoste=$PosteC->recherforposte($_GET["rechercher"]); 
+	
+?>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -84,7 +48,6 @@ if(isset($_SESSION["id_user"])) {
     <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
 </head>
-
 <body>
     <div class="container-xxl position-relative bg-white d-flex p-0">
         <!-- Spinner Start -->
@@ -114,14 +77,14 @@ if(isset($_SESSION["id_user"])) {
                 </div>
                 <div class="navbar-nav w-100">
                 <a href="afficheruser.php" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Gestion user</a>
-                    <a href="afficheravis.php" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i> Gestion avis</a>
+                    <a href="afficheravis.php" class="nav-item nav-link  "><i class="fa fa-tachometer-alt me-2"></i> Gestion avis</a>
                     <a href="afficherreclamation.php" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Gestion recl</a>
 
-                    <a href="afficherposte.php" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Gestion poste</a>
+                    <a href="afficherposte.php" class="nav-item nav-link active"><i class="fa fa-keyboard me-2"></i>Gestion poste</a>
                     <a href="affichercomment.php" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Gestion comment</a>
 
                     <a href="affichersponsor.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Gestion sponsor</a>
-                    <a href="afficherpublicite.php" class="nav-item nav-link active"><i class="fa fa-chart-bar me-2"></i>Gestion publicite</a>
+                    <a href="afficherpublicite.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Gestion publicite</a>
 
                     <a href="afficherproduit.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Gestion produit</a>
                     <a href="affichercategorie.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Gestion categorie</a>
@@ -142,8 +105,8 @@ if(isset($_SESSION["id_user"])) {
                 <a href="#" class="sidebar-toggler flex-shrink-0">
                     <i class="fa fa-bars"></i>
                 </a>
-                <form class="d-none d-md-flex ms-4">
-                    <input class="form-control border-0" type="search" placeholder="Search">
+                <form class="d-none d-md-flex ms-4" action="rechercherposte.php">
+                    <input class="form-control border-0" type="search" name="rechercher" id="rechercher" search placeholder="Search">
                 </form>
                 <div class="navbar-nav align-items-center ms-auto">
                
@@ -161,70 +124,78 @@ if(isset($_SESSION["id_user"])) {
                 </div>
             </nav>
             <!-- Navbar End -->
-		 
-            
-        <button class="btn btn-warning"><a href="afficherpublicte.php">Retour à la afficherpublicte</a></button>
-        <hr>
-        
-        <div id="error">
-            <?php echo $error; ?>
-        </div>
-			
-		<?php
-			if (isset($_GET["id_publicite"])){
-				$publicites = $PubliciteC->recupererpublicite($_GET["id_publicite"]);
-				
-		?>
-             <form id="" method="POST">
+		
+			<button class="btn btn-warning"><a href="ajouterposte.php">Ajouter un poste</a></button>
+		<center><h1>Liste des poste</h1></center>
+		<div class="row">
+        <div class="col-md-12">
                             <div class="row">
-                         
-                                  <div class="col-md-4">
-                                  
-                                  </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <input type="text" placeholder="Votre nom_publicite" value="<?php echo $publicites['nom_publicite']; ?>" id="nom_publicite" class="form-control" name="nom_publicite" >
-                        
-                                        
-                                    </div>
+                                <div class="col-md-6">
+                 <a href="trieposte.php?tire=id_poste"><button class="btn btn-info">trie par id_poste</button> </a>
+                 <a href="trieposte.php?tire=id_user"> <button class="btn btn-info">trie par id_user</button></a>
+				 <a href="trieposte.php?tire=message"> <button class="btn btn-info">trie par message</button></a>
+                 <a href="trieposte.php?tire=photo"><button class="btn btn-info">   trie par pho_to's</button></a>			
+                 <a href="trieposte.php?tire=nb_comments"><button class="btn btn-info">trie par nb_com</button></a>
+                 <a href="trieposte.php?tire=nb_likes"><button class="btn btn-info">   trie par nb_likes</button></a>
+                 <a href="trieposte.php?tire=date_poste"><button class="btn btn-info"> trie par date_poste</button></a>
                                 </div>
-                                <div class="col-md-4">
-                                  
-                                  </div>
-                                  <div class="col-md-4">
-                                  
-                                  </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                    <input type="number" class="form-control" value="<?php echo $publicites['prix']; ?>" name="prix" id="prix" />   
-                                    
-                                                                </div>
-                                </div>
-                                <div class="col-md-4">
-                                  
-                                  </div>
-                                  
+
                               
-                                  
-                                  <div class="col-md-5">
-                                  
-                                  </div>
-                                    <div class="submit-button text-center">
-
-                                    <input class="btn hvr-hover" type="submit" value="modifier poste"> 
-                                   
-                                    </div>
-                                </div>
                             </div>
-                        </form>
-     
 
-        </div>
-  
-		<?php
-		}
-		?>
-   </div>
+                           </div>
+								<div class="col-md-11">
+                                  
+								 
+		<div class="table-responsive">
+                        <table class="table text-start align-middle table-bordered table-hover mb-0">
+			<tr>
+				<th>id_poste</th>
+                <th>id_user</th>
+				<th>message</th>
+                <th>photo</th>
+                			
+                <th>nb_comments</th>
+                <th>nb_likes</th>
+                <th>date_avis</th>
+	
+
+				<th>Modifier</th>
+				<th>Supprimer</th>
+                <th>comment to this poste</th>
+                
+			</tr>
+			<?php
+				foreach($listePoste as $Poste){
+			?>
+			<tr>
+				<td><?php echo $Poste['id_poste']; ?></td>
+				<td><?php echo $Poste['id_user']; ?></td>
+				<td><?php echo $Poste['message']; ?></td>
+                <td> <img src="images/<?php echo $Poste['photo']; ?>" alt="" width="50" height="50"></td>
+                <td><?php echo $Poste['nb_comments']; ?></td>
+                <td><?php echo $Poste['nb_likes']; ?></td>
+                <td><?php echo $Poste['date_poste']; ?></td>
+ 
+				
+				<td>
+                <a href="modifierposte.php?id_poste=<?php echo $Poste['id_poste']; ?>">modifier</a>
+
+				</td>
+				<td>
+					<a href="supprimerposte.php?id_poste=<?php echo $Poste['id_poste']; ?>">Supprimer</a>
+				</td>
+                <td>
+                <a href="ajoutercomment.php?id_poste=<?php echo $Poste['id_poste']; ?>">comment</a>
+
+				</td>
+			</tr>
+			<?php
+				}
+			?>
+		</table>
+			</div>
+		</div>
 	      <!-- Footer End -->
 		  </div>
         <!-- Content End -->

@@ -37,6 +37,23 @@ $SponsorC2=$SponsorC->afficherSponsor();
         isset($_POST["photo"]) &&
         isset($_POST["prix"])
     ){
+        if(strlen($_POST["nom_publicite"])<3)
+        {
+            echo '<script>alert(" nom_publicite must be longer ")</script>';
+
+        }
+        else if ($_POST["photo"]=="")
+        {
+            echo '<script>alert(" photo must be filled out ")</script>';
+
+        }
+        else if ($_POST["prix"]==0)
+        {
+            echo '<script>alert(" prix must be more than 0 ")</script>';
+
+        }
+        else
+        {
        
             $Publicite = new Publicite( 
                 $_POST["sponsor"],		
@@ -48,7 +65,7 @@ $SponsorC2=$SponsorC->afficherSponsor();
               
             $PubliciteC->ajouterpublicite($Publicite);
             header("Location:afficherpublicite.php");
-
+            }
         }
         else
             $error = "Missing information";
@@ -125,6 +142,9 @@ $SponsorC2=$SponsorC->afficherSponsor();
                     <a href="affichersponsor.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Gestion sponsor</a>
                     <a href="afficherpublicite.php" class="nav-item nav-link active"><i class="fa fa-chart-bar me-2"></i>Gestion publicite</a>
 
+                    <a href="afficherproduit.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Gestion produit</a>
+                    <a href="affichercategorie.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Gestion categorie</a>
+
                 </div>
             </nav>
         </div>
@@ -161,7 +181,7 @@ $SponsorC2=$SponsorC->afficherSponsor();
             </nav>
             <!-- Navbar End -->
 		
-        <button><a href="Afficherpublicite.php">Retour à la liste des publicite</a></button>
+        <button class="btn btn-warning"><a href="Afficherpublicite.php">Retour à la liste des publicite</a></button>
         <hr>
         
         <div id="error">

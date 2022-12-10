@@ -10,49 +10,15 @@ if(isset($_SESSION["id_user"])) {
     
 }
 ?>
-
 <?php
-    include_once 'C:\xampp\htdocs\louled\Model\Publicite.php';
-    include_once 'C:\xampp\htdocs\louled\Controller\PubliciteC.php';
-
-    $error = "";
-
-    // create offre
-    $Publicite = null;
-
-    $a=$_GET["id_publicite"];
-
-
-    // create an instance of the controller
-    $PubliciteC = new PubliciteC();
-    if (
-		isset($_POST["nom_publicite"]) &&		
-        isset($_POST["prix"]) 	
-        
-    ) if (
-        isset($_POST["nom_publicite"]) &&		
-        isset($_POST["prix"]) 
-    ){
-      
-            $Publicite = new Publicite(
-               $a,		
-                $_POST["nom_publicite"],
-                $_POST["prix"],
-                $_POST["prix"]
-   
-                
-              );
-          
-            $PubliciteC->modifierpublicite($Publicite, $a);
-            header("Location:afficherpublicite.php");
-
-        }
-        else
-            $error = "Missing information";
-
-    
-            ?>
-         <!DOCTYPE html>
+	include_once 'C:\xampp\htdocs\louled\Controller\SponsorC.php';
+    include_once("exel/db_connect.php");
+include("exel/export_data.php");
+	$SponsorC=new SponsorC();
+	$listeSponsor=$SponsorC->recherforsponsor($_GET["rechercher"]); 
+	
+?>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -84,7 +50,6 @@ if(isset($_SESSION["id_user"])) {
     <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
 </head>
-
 <body>
     <div class="container-xxl position-relative bg-white d-flex p-0">
         <!-- Spinner Start -->
@@ -114,14 +79,14 @@ if(isset($_SESSION["id_user"])) {
                 </div>
                 <div class="navbar-nav w-100">
                 <a href="afficheruser.php" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Gestion user</a>
-                    <a href="afficheravis.php" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i> Gestion avis</a>
+                    <a href="afficheravis.php" class="nav-item nav-link  "><i class="fa fa-tachometer-alt me-2"></i> Gestion avis</a>
                     <a href="afficherreclamation.php" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Gestion recl</a>
 
                     <a href="afficherposte.php" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Gestion poste</a>
                     <a href="affichercomment.php" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Gestion comment</a>
 
-                    <a href="affichersponsor.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Gestion sponsor</a>
-                    <a href="afficherpublicite.php" class="nav-item nav-link active"><i class="fa fa-chart-bar me-2"></i>Gestion publicite</a>
+                    <a href="affichersponsor.php" class="nav-item nav-link active"><i class="fa fa-chart-bar me-2"></i>Gestion sponsor</a>
+                    <a href="afficherpublicite.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Gestion publicite</a>
 
                     <a href="afficherproduit.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Gestion produit</a>
                     <a href="affichercategorie.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Gestion categorie</a>
@@ -142,8 +107,8 @@ if(isset($_SESSION["id_user"])) {
                 <a href="#" class="sidebar-toggler flex-shrink-0">
                     <i class="fa fa-bars"></i>
                 </a>
-                <form class="d-none d-md-flex ms-4">
-                    <input class="form-control border-0" type="search" placeholder="Search">
+                <form class="d-none d-md-flex ms-4" action="recherchersponsor.php">
+                    <input class="form-control border-0" type="search" name="rechercher" id="rechercher" search placeholder="Search">
                 </form>
                 <div class="navbar-nav align-items-center ms-auto">
                
@@ -161,70 +126,67 @@ if(isset($_SESSION["id_user"])) {
                 </div>
             </nav>
             <!-- Navbar End -->
-		 
-            
-        <button class="btn btn-warning"><a href="afficherpublicte.php">Retour à la afficherpublicte</a></button>
-        <hr>
-        
-        <div id="error">
-            <?php echo $error; ?>
-        </div>
-			
-		<?php
-			if (isset($_GET["id_publicite"])){
-				$publicites = $PubliciteC->recupererpublicite($_GET["id_publicite"]);
+		
+			<button class="btn btn-warning"><a href="ajoutersponsor.php">Ajouter un Sponsor</a></button>
+		<center><h1>Liste des Sponsor</h1></center>
+		<div class="row">
+                           
+								<div class="col-md-11">
+                                <div class="btn-group pull-right">	
+			<form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">					
+				<button type="submit" id="export_data" name='export_data' value="Export to excel" class="btn btn-info">Export to excel</button>
+			</form>
+            <form action="pdf\pdf.php" method="post" >					
+				<button type="submit" id="submit" value="Export to pdf" class="btn btn-info">Export to pdf</button>
+			</form>
+		</div>
+								 
+		<div class="table-responsive">
+                        <table class="table text-start align-middle table-bordered table-hover mb-0">
+			<tr>  
+				<th> <a href="triesponsor.php?tire=id_sponsor"> id_sponsor </a></th>
+                <th> <a href="triesponsor.php?tire=id_user"> id_user</a></th>
+				<th> <a href="triesponsor.php?tire=type_sponsor"> type_sponsor</a></th>
+                <th> <a href="triesponsor.php?tire=subscribe_date"> subscribe_date</a></th>
+                			
+                <th> <a href="triesponsor.php?tire=endsub_date"> endsub_date</a></th>
+                <th> <a href="triesponsor.php?tire=subscribe_price"> subscribe_price</a></th>
+                <th> <a href="triesponsor.php?tire=sponsor_describe"> sponsor_describe</a></th>
+	
+
+				<th>Modifier</th>
+				<th>Supprimer</th>
+          
+                
+			</tr>
+			<?php
+				foreach($listeSponsor as $Sponsor){
+			?>
+			<tr>
+				<td><?php echo $Sponsor['id_sponsor']; ?></td>
+				<td><?php echo $Sponsor['id_user']; ?></td>
+				<td><?php echo $Sponsor['type_sponsor']; ?></td>
+				<td><?php echo $Sponsor['subscribe_date']; ?></td>
+                <td><?php echo $Sponsor['endsub_date']; ?></td>
+                <td><?php echo $Sponsor['subscribe_price']; ?></td>
+                <td><?php echo $Sponsor['sponsor_describe']; ?></td>
+ 
 				
-		?>
-             <form id="" method="POST">
-                            <div class="row">
-                         
-                                  <div class="col-md-4">
-                                  
-                                  </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <input type="text" placeholder="Votre nom_publicite" value="<?php echo $publicites['nom_publicite']; ?>" id="nom_publicite" class="form-control" name="nom_publicite" >
-                        
-                                        
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                  
-                                  </div>
-                                  <div class="col-md-4">
-                                  
-                                  </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                    <input type="number" class="form-control" value="<?php echo $publicites['prix']; ?>" name="prix" id="prix" />   
-                                    
-                                                                </div>
-                                </div>
-                                <div class="col-md-4">
-                                  
-                                  </div>
-                                  
-                              
-                                  
-                                  <div class="col-md-5">
-                                  
-                                  </div>
-                                    <div class="submit-button text-center">
+				<td>
+                <a href="modifiersponsor.php?id_sponsor=<?php echo $Sponsor['id_sponsor']; ?>">modifier</a>
 
-                                    <input class="btn hvr-hover" type="submit" value="modifier poste"> 
-                                   
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-     
-
-        </div>
-  
-		<?php
-		}
-		?>
-   </div>
+				</td>
+				<td>
+					<a href="supprimersponsor.php?id_sponsor=<?php echo $Sponsor['id_sponsor']; ?>">Supprimer</a>
+				</td>
+                
+			</tr>
+			<?php
+				}
+			?>
+		</table>
+			</div>
+		</div>
 	      <!-- Footer End -->
 		  </div>
         <!-- Content End -->
@@ -244,7 +206,10 @@ if(isset($_SESSION["id_user"])) {
     <script src="lib/tempusdominus/js/moment.min.js"></script>
     <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
     <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
-
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
 </body>

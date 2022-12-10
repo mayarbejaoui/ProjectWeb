@@ -1,3 +1,15 @@
+
+<?php
+session_start();
+
+if(isset($_SESSION["id_user"])) {
+	header('Location: profile.php');
+}else{
+ 
+
+    
+}
+?>
 <?php
     include_once 'C:\xampp\htdocs\louled\Model\User.php';
     include_once 'C:\xampp\htdocs\louled\Controller\UserC.php';
@@ -147,6 +159,8 @@ else
                     <ul class="nav navbar-nav ml-auto" data-in="fadeInDown" data-out="fadeOutUp">
                         <li class="nav-item"><a class="nav-link" href="profile.php">Profil</a></li>
                         <li class="nav-item "><a class="nav-link" href="bepartner.php">be a sponsor</a></li>
+                        <li class="nav-item "><a class="nav-link" href="afficherlisteproduitfront.php">show product</a></li>
+
                         <li class="dropdown ">
                             <a href="afficheravis.php" class="nav-link dropdown-toggle arrow " data-toggle="dropdown">avis et reclamation</a>
                             <ul class="dropdown-menu">

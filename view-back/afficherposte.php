@@ -86,6 +86,9 @@ if(isset($_SESSION["id_user"])) {
                     <a href="affichersponsor.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Gestion sponsor</a>
                     <a href="afficherpublicite.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Gestion publicite</a>
 
+                    <a href="afficherproduit.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Gestion produit</a>
+                    <a href="affichercategorie.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Gestion categorie</a>
+
                 </div>
             </nav>
         </div>
@@ -102,8 +105,8 @@ if(isset($_SESSION["id_user"])) {
                 <a href="#" class="sidebar-toggler flex-shrink-0">
                     <i class="fa fa-bars"></i>
                 </a>
-                <form class="d-none d-md-flex ms-4">
-                    <input class="form-control border-0" type="search" placeholder="Search">
+                <form class="d-none d-md-flex ms-4" action="rechercherposte.php">
+                    <input class="form-control border-0" type="search" name="rechercher" id="rechercher" search placeholder="Search">
                 </form>
                 <div class="navbar-nav align-items-center ms-auto">
                
@@ -122,10 +125,25 @@ if(isset($_SESSION["id_user"])) {
             </nav>
             <!-- Navbar End -->
 		
-			<button><a href="ajouterposte.php">Ajouter un poste</a></button>
+			<button class="btn btn-warning"><a href="ajouterposte.php">Ajouter un poste</a></button>
 		<center><h1>Liste des poste</h1></center>
 		<div class="row">
-                           
+                           <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-6">
+                 <a href="trieposte.php?tire=id_poste"><button class="btn btn-info">trie par id_poste</button> </a>
+                 <a href="trieposte.php?tire=id_user"> <button class="btn btn-info">trie par id_user</button></a>
+				 <a href="trieposte.php?tire=message"> <button class="btn btn-info">trie par message</button></a>
+                 <a href="trieposte.php?tire=photo"><button class="btn btn-info">   trie par pho_to's</button></a>			
+                 <a href="trieposte.php?tire=nb_comments"><button class="btn btn-info">trie par nb_com</button></a>
+                 <a href="trieposte.php?tire=nb_likes"><button class="btn btn-info">   trie par nb_likes</button></a>
+                 <a href="trieposte.php?tire=date_poste"><button class="btn btn-info"> trie par date_poste</button></a>
+                                </div>
+
+                              
+                            </div>
+
+                           </div>
 								<div class="col-md-11">
                                   
 								 
@@ -139,7 +157,7 @@ if(isset($_SESSION["id_user"])) {
                 			
                 <th>nb_comments</th>
                 <th>nb_likes</th>
-                <th>date_avis</th>
+                <th>date_poste</th>
 	
 
 				<th>Modifier</th>

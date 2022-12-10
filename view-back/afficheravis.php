@@ -83,7 +83,8 @@ else{
                     </div>
                 </div>
                 <div class="navbar-nav w-100">
-                <a href="afficheruser.php" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Gestion user</a>
+                    <a href="afficheruser.php" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Gestion user</a>
+
                     <a href="afficheravis.php" class="nav-item nav-link active "><i class="fa fa-tachometer-alt me-2"></i> Gestion avis</a>
                     <a href="afficherreclamation.php" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Gestion recl</a>
 
@@ -92,6 +93,9 @@ else{
 
                     <a href="affichersponsor.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Gestion sponsor</a>
                     <a href="afficherpublicite.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Gestion publicite</a>
+
+                    <a href="afficherproduit.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Gestion produit</a>
+                    <a href="affichercategorie.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Gestion categorie</a>
 
                 </div>
             </nav>
@@ -129,13 +133,13 @@ else{
             </nav>
             <!-- Navbar End -->
 		
-			<button><a href="ajouteravis.php">Ajouter un avis</a></button>
+			<button class="btn btn-warning"><a href="ajouteravis.php">Ajouter un avis</a></button>
 		<center><h1>Liste des avis</h1></center>
 		<div class="row">
                            
 								<div class="col-md-11">
                                   
-								 
+                                <button class="btn btn-warning"><a href="avisstat.php">afficher statistique</a></button>		 
 		<div class="table-responsive">
                         <table class="table text-start align-middle table-bordered table-hover mb-0">
 			<tr>

@@ -12,39 +12,56 @@ if(isset($_SESSION["id_user"])) {
 ?>
 
 <?php
-    include_once 'C:\xampp\htdocs\louled\Model\Publicite.php';
-    include_once 'C:\xampp\htdocs\louled\Controller\PubliciteC.php';
+    include_once 'C:\xampp\htdocs\louled\Model\produit.php';
+    include_once 'C:\xampp\htdocs\louled\Controller\produitC.php';
 
     $error = "";
 
     // create offre
-    $Publicite = null;
+    $Avis = null;
 
-    $a=$_GET["id_publicite"];
+    $a=$_GET["id_produit"];
 
 
     // create an instance of the controller
-    $PubliciteC = new PubliciteC();
+    $produitC = new produitC();
+    $prod = $produitC->recupererproduit($_GET["id_produit"]);
     if (
-		isset($_POST["nom_publicite"]) &&		
-        isset($_POST["prix"]) 	
+			
+        isset($_POST["nom"]) 	&&
+        isset($_POST["descr"]) 	&&
+        isset($_POST["url_image"]) 	&&
+        isset($_POST["pu_achat"]) 	&&
+        isset($_POST["pu_vente"]) 	&&
+        isset($_POST["qte_stock"]) 	
+      
         
     ) if (
-        isset($_POST["nom_publicite"]) &&		
-        isset($_POST["prix"]) 
+      	
+        isset($_POST["nom"]) 	&&
+        isset($_POST["descr"]) 	&&
+        isset($_POST["url_image"]) 	&&
+        isset($_POST["pu_achat"]) 	&&
+        isset($_POST["pu_vente"]) 	&&
+        isset($_POST["qte_stock"]) 
     ){
       
-            $Publicite = new Publicite(
-               $a,		
-                $_POST["nom_publicite"],
-                $_POST["prix"],
-                $_POST["prix"]
+            $produit = new produit(
+                $_POST["nom"],		
+                $_POST["descr"],
+                $_POST["url_image"],
+                "",
+                "",
+                $_POST["pu_achat"],
+                $_POST["pu_vente"],
+                $_POST["qte_stock"],
+                ""
    
                 
               );
           
-            $PubliciteC->modifierpublicite($Publicite, $a);
-            header("Location:afficherpublicite.php");
+            $produitC->modifierproduit($produit, $a);
+            header("Location:afficherproduit.php");
 
         }
         else
@@ -52,7 +69,7 @@ if(isset($_SESSION["id_user"])) {
 
     
             ?>
-         <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -114,18 +131,17 @@ if(isset($_SESSION["id_user"])) {
                 </div>
                 <div class="navbar-nav w-100">
                 <a href="afficheruser.php" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Gestion user</a>
-                    <a href="afficheravis.php" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i> Gestion avis</a>
+                    <a href="afficheravis.php" class="nav-item nav-link  "><i class="fa fa-tachometer-alt me-2"></i> Gestion avis</a>
                     <a href="afficherreclamation.php" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Gestion recl</a>
 
                     <a href="afficherposte.php" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Gestion poste</a>
                     <a href="affichercomment.php" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Gestion comment</a>
 
                     <a href="affichersponsor.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Gestion sponsor</a>
-                    <a href="afficherpublicite.php" class="nav-item nav-link active"><i class="fa fa-chart-bar me-2"></i>Gestion publicite</a>
+                    <a href="afficherpublicite.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Gestion publicite</a>
 
-                    <a href="afficherproduit.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Gestion produit</a>
-                    <a href="affichercategorie.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Gestion categorie</a>
-
+                    <a href="afficherproduit.php" class="nav-item nav-link active"><i class="fa fa-chart-bar me-2"></i>Gestion produit</a>
+                    <a href="affichercategorie.php" class="nav-item nav-link "><i class="fa fa-chart-bar me-2"></i>Gestion categorie</a>
                 </div>
             </nav>
         </div>
@@ -161,9 +177,8 @@ if(isset($_SESSION["id_user"])) {
                 </div>
             </nav>
             <!-- Navbar End -->
-		 
-            
-        <button class="btn btn-warning"><a href="afficherpublicte.php">Retour à la afficherpublicte</a></button>
+		
+        <button class="btn btn-warning"><a href="afficherproduit.php">Retour à la liste de produit</a></button>
         <hr>
         
         <div id="error">
@@ -171,11 +186,12 @@ if(isset($_SESSION["id_user"])) {
         </div>
 			
 		<?php
-			if (isset($_GET["id_publicite"])){
-				$publicites = $PubliciteC->recupererpublicite($_GET["id_publicite"]);
+			if (isset($_GET["id_produit"])){
+				$prod = $produitC->recupererproduit($_GET["id_produit"]);
 				
 		?>
-             <form id="" method="POST">
+        
+        <form id="" method="POST">
                             <div class="row">
                          
                                   <div class="col-md-4">
@@ -183,7 +199,21 @@ if(isset($_SESSION["id_user"])) {
                                   </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <input type="text" placeholder="Votre nom_publicite" value="<?php echo $publicites['nom_publicite']; ?>" id="nom_publicite" class="form-control" name="nom_publicite" >
+                                        <input type="text" placeholder="Votre nom" value="<?php echo $prod['nom']; ?>" id="nom" class="form-control" name="nom" >
+                        
+                                        
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                  
+                                  </div>
+                              
+                                  <div class="col-md-4">
+                                  
+                                  </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <input type="text" placeholder="Votre descr" value="<?php echo $prod['descr']; ?>" id="descr" class="form-control" name="descr" >
                         
                                         
                                     </div>
@@ -196,14 +226,56 @@ if(isset($_SESSION["id_user"])) {
                                   </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                    <input type="number" class="form-control" value="<?php echo $publicites['prix']; ?>" name="prix" id="prix" />   
-                                    
-                                                                </div>
+                                        <input type="number" placeholder="Votre pu_achat" value="<?php echo $prod['pu_achat']; ?>" id="pu_achat" class="form-control" name="pu_achat" >
+                        
+                                        
+                                    </div>
                                 </div>
                                 <div class="col-md-4">
                                   
                                   </div>
+                                  <div class="col-md-4">
                                   
+                                  </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <input type="text" placeholder="Votre pu_vente" value="<?php echo $prod['pu_vente']; ?>" id="pu_vente" class="form-control" name="pu_vente" >
+                        
+                                        
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                  
+                                  </div>
+                              
+                               
+                                  <div class="col-md-4">
+                                  
+                                  </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <input type="text" placeholder="Votre qte_stock" value="<?php echo $prod['qte_stock']; ?>" id="qte_stock" class="form-control" name="qte_stock" >
+                        
+                                        
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                  
+                                  </div>
+                              
+                                  <div class="col-md-4">
+                                  
+                                  </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <input type="file" placeholder="Votre url_image" value="<?php echo $prod['url_image']; ?>" id="url_image" class="form-control" name="url_image" >
+                        
+                                        
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                  
+                                  </div>
                               
                                   
                                   <div class="col-md-5">
@@ -211,7 +283,7 @@ if(isset($_SESSION["id_user"])) {
                                   </div>
                                     <div class="submit-button text-center">
 
-                                    <input class="btn hvr-hover" type="submit" value="modifier poste"> 
+                                    <input class="btn hvr-hover" type="submit" value="modifier produit"> 
                                    
                                     </div>
                                 </div>
@@ -220,11 +292,11 @@ if(isset($_SESSION["id_user"])) {
      
 
         </div>
-  
+    
 		<?php
 		}
 		?>
-   </div>
+    </div>
 	      <!-- Footer End -->
 		  </div>
         <!-- Content End -->

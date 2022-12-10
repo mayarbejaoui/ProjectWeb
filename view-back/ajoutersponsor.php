@@ -50,6 +50,18 @@ $subscribe_price=null;
         {
             $subscribe_price=200;
         }
+        if(strlen($_POST["sponsor_describe"])<8)
+        {
+            echo '<script>alert(" sponsor describe must be longer ")</script>';
+
+        }
+        else if ($_POST["endsub_date"]=="")
+        {
+            echo '<script>alert(" date must be filled out ")</script>';
+
+        }
+        else
+        {
       
             $Sponsor = new Sponsor(
                 $_SESSION["id_user"],		
@@ -62,7 +74,7 @@ $subscribe_price=null;
               
             $SponsorC->ajoutersponsor($Sponsor);
             header("Location:affichersponsor.php");
-
+        }
         }
         else
             $error = "Missing information";
@@ -139,6 +151,9 @@ $subscribe_price=null;
                     <a href="affichersponsor.php" class="nav-item nav-link active"><i class="fa fa-chart-bar me-2"></i>Gestion sponsor</a>
                     <a href="afficherpublicite.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Gestion publicite</a>
 
+                    <a href="afficherproduit.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Gestion produit</a>
+                    <a href="affichercategorie.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Gestion categorie</a>
+
                 </div>
             </nav>
         </div>
@@ -175,7 +190,7 @@ $subscribe_price=null;
             </nav>
             <!-- Navbar End -->
 		
-        <button><a href="Affichersponsor.php">Retour à la liste des sponsor</a></button>
+        <button class="btn btn-warning"><a href="Affichersponsor.php">Retour à la liste des sponsor</a></button>
         <hr>
         
         <div id="error">

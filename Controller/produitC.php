@@ -48,8 +48,8 @@
 			}
 		}
 		function ajouterproduit($produit){
-			$sql="INSERT INTO produit ( Nom, descr, url_image, code_categ, id_scateg, pu_achat, pu_vente, qte_stock,date) 
-			VALUES (:Nom,:descr, :url_image,:code_categ,:id_scateg,:pu_achat,:pu_vente,:qte_stock,:date)";
+			$sql="INSERT INTO produit ( Nom, descr, url_image, code_categ, id_scateg, pu_achat, pu_vente, qte_stock) 
+			VALUES (:Nom,:descr, :url_image,:code_categ,:id_scateg,:pu_achat,:pu_vente,:qte_stock)";
 			$db = config::getConnexion();
 			try{
 				$query = $db->prepare($sql);
@@ -62,8 +62,7 @@
 					'id_scateg'=> $produit->getid_scateg(),
 					'pu_achat'=> $produit->getpu_achat(),
 					'pu_vente'=> $produit->getpu_vente(),
-					'qte_stock'=> $produit->getqte_stock(),
-					'date'=> $produit->getdate()
+					'qte_stock'=> $produit->getqte_stock()
 
 				]);			
 			}
@@ -94,12 +93,9 @@
 						Nom= :Nom, 
 						descr= :descr, 
 						url_image= :url_image, 
-						code_categ= :code_categ, 
-						id_scateg= :id_scateg,
 						pu_achat= :pu_achat, 
 						pu_vente= :pu_vente,
-						qte_stock = :qte_stock ,
-						date = :date 
+						qte_stock = :qte_stock 
 						
 					WHERE id_produit= :id_produit'
 				);
@@ -108,12 +104,11 @@
 					'Nom' => $produit->getNom(),
 					'descr' => $produit->getdescr(),
 					'url_image' => $produit->geturl_image(),
-					'code_categ' => $produit->getcode_categ(),
-					'id_scateg'=> $produit->getid_scateg(),
+				
 					'pu_achat'=> $produit->getpu_achat(),
 					'pu_vente'=> $produit->getpu_vente(),
 					'qte_stock'=> $produit->getqte_stock(),
-						'date'=> $produit->getdate(),
+						
 						
 					
 					'id_produit' => $id_produit

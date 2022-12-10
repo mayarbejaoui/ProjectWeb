@@ -53,7 +53,7 @@
     <header class="main-header">
         <!-- Start Navigation -->
         <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-default bootsnav">
-            <div class="container">
+            <div class="container"id ="invoice">
                 <!-- Start Header Navigation -->
                 <div class="navbar-header">
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-menu" aria-controls="navbars-rs-food" aria-expanded="false" aria-label="Toggle navigation">
@@ -68,11 +68,12 @@
                     <ul class="nav navbar-nav ml-auto" data-in="fadeInDown" data-out="fadeOutUp">
                         <li class="nav-item"><a class="nav-link" href="profile.php">Profil</a></li>
                         <li class="nav-item "><a class="nav-link" href="bepartner.php">be a partner</a></li>
+                        <li class="nav-item "><a class="nav-link" href="afficherlisteproduitfront.php">show product</a></li>
+
                         <li class="dropdown active">
                             <a href="afficheravis.php" class="nav-link dropdown-toggle arrow " data-toggle="dropdown">avis et reclamation</a>
                             <ul class="dropdown-menu">
 								<li><a href="afficheravis.php">show avis</a></li>
-								<li><a href="ajouteravis.php">add  avis</a></li>
                                 <li><a href="afficherreclamation.php">show reclamation</a></li>
                                 <li><a href="ajouterreclamation.php">add reclamation</a></li>
                             
@@ -320,6 +321,8 @@
             </div>
         </div>
     </footer>
+    <a class="nav-link" id="car-images-tab" data-bs-toggle="tab" href="#car_images">  <button onclick="generatePDF()">Download</button>
+                                        </a>
     <!-- End Footer  -->
 
     <!-- Start copyright  -->
@@ -328,7 +331,8 @@
             <a href="https://html.design/">html design</a></p>
     </div>
     <!-- End copyright  -->
-
+    <script src="https://raw.githack.com/eKoopmans/html2pdf/master/dist/html2pdf.bundle.js"></script>
+<script src="js/script.js"></script>
     <a href="#" id="back-to-top" title="Back to top" style="display: none;">&uarr;</a>
 
     <!-- ALL JS FILES -->
