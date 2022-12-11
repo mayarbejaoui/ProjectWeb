@@ -157,8 +157,9 @@ $listeproduits=$produitC->afficherproduits();
 
     <div class="row">
     <div class="col-md-5">
-                                  
-                                </div>
+  <a href="pdf.php">  <button class="btn hvr-hover">get pdf</button></a>
+             
+     </div>
                                 <div class="col-md-4">
                                 <h1 class="center"> liste produit</h1>
                                 </div>
