@@ -30,7 +30,7 @@ if(isset($_SESSION["id_user"])) {
     }
 	
 	$nbrpub=$PubliciteC->nbrpublicite();
-    $nbrpublicite_per_page=5;
+    $nbrpublicite_per_page=3;
     $nb_pages=ceil( $nbrpub["rc"] / $nbrpublicite_per_page);
     $debut=($page-1)*$nbrpublicite_per_page;
     $listepub=$PubliciteC->afficherpubliciteforpagination($debut,$nbrpublicite_per_page); 
@@ -213,7 +213,7 @@ $test=0;
 				<td><?php echo $tab[$i]['date_publicite']; ?></td>
                 <td> <img src="images/<?php echo $tab[$i]['photo']; ?>" alt="" width="50" height="50"></td>
 
-                <td><?php echo $Publicite['prix']; ?></td>
+                <td><?php echo $tab[$i]['prix']; ?></td>
         
  
 				

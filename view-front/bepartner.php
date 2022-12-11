@@ -151,7 +151,7 @@ if(isset($_SESSION["id_user"])) {
     <div class="row">
               
 <div class="col-lg-6">
-                    <div class="banner-frame"> <img class="img-fluid" src="images/about-img.jpg" alt="" />
+                    <div class="banner-frame"> <img class="img-fluid" src="images/kisspng-shelf-furniture-bookcase-coffee-tables-commode-meuble-5b3427d671b338.0618282515301447264657 (1).jpg" alt="" />
                     </div>
                 </div>
                 <div class="col-lg-6">

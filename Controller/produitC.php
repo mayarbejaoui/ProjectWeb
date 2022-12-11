@@ -29,7 +29,17 @@
 				die('Erreur:'. $e->getMessage());
 			}
 		}
-
+		function recherforsponsor($rechercher){
+			$sql="SELECT * FROM produit WHERE id_produit like '%$rechercher%' or nom like '%$rechercher%'  or descr like '%$rechercher%' or code_categ like '%$rechercher%' or id_scateg like '%$rechercher%' or pu_achat like '%$rechercher%' or pu_vente like '%$rechercher%'";
+			$db = config::getConnexion();
+			try{
+				$liste = $db->query($sql);
+				return $liste;
+			}
+			catch(Exception $e){
+				die('Erreur:'. $e->getMessage());
+			}
+		}
 
 		
 

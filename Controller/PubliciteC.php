@@ -5,7 +5,7 @@
 
 
 		function nbrpublicite(){
-			$sql="SELECT count(*) as rc from publicite";
+			$sql="SELECT count(*) as rc from publicitee";
 			$db = config::getConnexion();
 			try{
 				$query=$db->prepare($sql);
@@ -19,7 +19,7 @@
 			}
 		}
 		function afficherpubliciteforpagination($debut,$nbelement){
-			$sql="SELECT * FROM publicite limit $debut,$nbelement";
+			$sql="SELECT * FROM publicitee limit $debut,$nbelement";
 			$db = config::getConnexion();
 			try{
 				$liste = $db->query($sql);
@@ -32,7 +32,7 @@
 		function afficherrandpub(){
 
 			
-			$sql="SELECT * from publicite ORDER BY RAND() LIMIT 1";
+			$sql="SELECT * from publicitee ORDER BY RAND() LIMIT 1";
 			$db = config::getConnexion();
 			try{
 				$query=$db->prepare($sql);
@@ -47,7 +47,7 @@
 		}
 
 		function afficherPublicite(){
-			$sql="SELECT * FROM publicite";
+			$sql="SELECT * FROM publicitee";
 			$db = config::getConnexion();
 			try{
 				$liste = $db->query($sql);
@@ -58,7 +58,7 @@
 			}
 		}
 		function supprimerpublicite($id_publicite){
-			$sql="DELETE FROM publicite WHERE id_publicite=:id_publicite";
+			$sql="DELETE FROM publicitee WHERE id_publicite=:id_publicite";
 			$db = config::getConnexion();
 			$req=$db->prepare($sql);
 			$req->bindValue(':id_publicite', $id_publicite);
@@ -70,7 +70,7 @@
 			}
 		}
 		function ajouterpublicite($publicite){
-			$sql="INSERT INTO publicite (	id_sponsor, nom_publicite, photo, prix) 
+			$sql="INSERT INTO publicitee (	id_sponsor, nom_publicite, photo, prix) 
 			VALUES ( :id_sponsor, :nom_publicite, :photo, :prix)";
 			$db = config::getConnexion();
 			try{
@@ -88,7 +88,7 @@
 			}			
 		}
 		function recupererpublicite($id_publicite){
-			$sql="SELECT * from publicite where id_publicite=$id_publicite";
+			$sql="SELECT * from publicitee where id_publicite=$id_publicite";
 			$db = config::getConnexion();
 			try{
 				$query=$db->prepare($sql);
@@ -108,7 +108,7 @@
 			try {
 				$db = config::getConnexion();
 				$query = $db->prepare(
-					'UPDATE publicite SET 
+					'UPDATE publicitee SET 
 		                nom_publicite= :nom_publicite,
                         prix= :prix
 

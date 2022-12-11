@@ -13,7 +13,7 @@ include '../Controller/produitC.php';
 
 $produitC=new produitC();
 
-$listeproduits=$produitC->afficherproduits(); 
+$listeproduits=$produitC->recherforsponsor($_GET["rechercher"]); 
 
 
 
